@@ -1,0 +1,76 @@
+# Node.js dependencies
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Build output
+dist/
+*.tgz
+*.swp
+.vite/
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor directories
+.vscode/*
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.vscode-test/
+!.vscode/extensions.json
+
+# Miscellaneous
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Local development files
+*.local
+
+# Next.js build (if using SSR or static export)
+out/
+
+# Vercel/Turbo repo build cache
+.vercel/
+.cache/
+
+# Local environment files (e.g., .env files)
+.env
+.env.local
+.env.*.local
+
+# Coverage output (e.g., from Jest or other testing tools)
+coverage/
+
+# Testing
+test-results/
+
+# IDE / Tools specific caches
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Mac-specific
+.DS_Store
+
+# Windows-specific
+Thumbs.db
+
+# Tye temporary files (if you use Tye)
+.tye/
+
+# Lock files (if you use multiple lock files or package managers)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# TypeScript build outputs (if you use TypeScript in your Vite app)
+*.tsbuildinfo
