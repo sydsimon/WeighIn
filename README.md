@@ -14,4 +14,5 @@ Database Setup: 4 points
 Display Results / Frontend: 3 points
 
 # Flow Chart
-<img width="911" alt="Screenshot 2024-11-11 at 10 59 09 PM" src="https://github.com/user-attachments/assets/e9591320-f79b-420a-8d15-18ead51b2887">
+
+<img width="931" alt="Screenshot 2024-11-11 at 11 00 10 PM" src="https://github.com/user-attachments/assets/d1208bdd-78fd-4fe3-9d98-663426ffd3ca">
