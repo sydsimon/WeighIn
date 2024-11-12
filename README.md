@@ -23,4 +23,12 @@
 
 
 # Milestones 
+* Database Setup - Nov 12th
+* Aggregation and quality control - Nov 14th
+* Post + Respond to Question - Nov 19th
+* User Sign in - Nov 19th
+* Display Results / Frontend - Nov 19th
+* Profile Page with results - Nov 26th
+
+
 
