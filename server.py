@@ -1,8 +1,34 @@
 from flask import Flask, g, jsonify, request
 import sqlite3
+from googleapiclient import discovery
+import json
 
 app = Flask(__name__)
 DATABASE = 'data/polls.db'
+
+# Initialize Perspective API client
+API_KEY = 'AIzaSyDODqNb52YIx-E_-qHiwE0fk04j2qeoVCo'
+client = discovery.build(
+    "commentanalyzer",
+    "v1alpha1",
+    developerKey=API_KEY,
+    discoveryServiceUrl="https://commentanalyzer.googleapis.com/$discovery/rest?version=v1alpha1",
+    static_discovery=False,
+)
+
+def check_toxicity(text):
+    analyze_request = {
+        'comment': {'text': text},
+        'requestedAttributes': {'TOXICITY': {}}
+    }
+    
+    try:
+        response = client.comments().analyze(body=analyze_request).execute()
+        toxicity_score = response["attributeScores"]["TOXICITY"]["summaryScore"]["value"]
+        return toxicity_score
+    except Exception as e:
+        print(f"Error checking toxicity: {e}")
+        return None
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -147,6 +173,34 @@ def add_poll():
 
     if not all([authorid, question, start_time, response1, response2, response3, response4]):
         return jsonify({"error": "All fields except description are required."}), 400
+    
+    # Check question toxicity
+    toxicity_score = check_toxicity(question)
+    if toxicity_score and toxicity_score > 0.7:  
+        return jsonify({
+            "error": "Question contains inappropriate content. Please rephrase.",
+            "toxicity_score": toxicity_score
+        }), 400
+    
+    # Check question toxicity
+    toxicity_score = check_toxicity(description)
+    if toxicity_score and toxicity_score > 0.7:  
+        return jsonify({
+            "error": "Description contains inappropriate content. Please rephrase.",
+            "toxicity_score": toxicity_score
+        }), 400
+    
+    # Check response options toxicity
+    for i in range(1, 5):
+        response = data.get(f'response{i}')
+        if response:
+            toxicity_score = check_toxicity(response)
+            if toxicity_score and toxicity_score > 0.7:
+                return jsonify({
+                    "error": f"Response option {i} contains inappropriate content. Please rephrase.",
+                    "toxicity_score": toxicity_score
+                }), 400
+    
 
     db = get_db()
     cursor = db.cursor()
