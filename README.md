@@ -32,7 +32,7 @@
 
 # Where to find things
 * Raw data: WeighIn/data/polls.db
-* Sample input/output for QC: 
-* Sample input/output for aggregation:
-* Code for QC: 
-* Code for aggregation:
+* Sample input/output for QC: WeighIn/data/polls.db
+* Sample input/output for aggregation: WeighIn/data/polls.db
+* Code for QC: WeighIn/server.py
+* Code for aggregation: WeighIn/server.py
