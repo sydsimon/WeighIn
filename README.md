@@ -31,8 +31,8 @@
 * Profile Page with results - Nov 26th
 
 # Where to find things
-* Raw data: WeighIn/data/polls.db
-* Sample input/output for QC: WeighIn/data/polls.db
-* Sample input/output for aggregation: WeighIn/data/polls.db
+* Raw data: WeighIn/data/polls.db (open with sqlite or alternative) 
+* Sample input/output for QC: WeighIn/data/polls.db (open with sqlite or alternative) 
+* Sample input/output for aggregation: WeighIn/data/polls.db (open with sqlite or alternative) 
 * Code for QC: WeighIn/server.py
 * Code for aggregation: WeighIn/server.py
