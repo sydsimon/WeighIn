@@ -30,5 +30,9 @@
 * Display Results / Frontend - Nov 19th
 * Profile Page with results - Nov 26th
 
-
-
+# Where to find things
+* Raw data: WeighIn/data/polls.db
+* Sample input/output for QC: 
+* Sample input/output for aggregation:
+* Code for QC: 
+* Code for aggregation:
