@@ -34,5 +34,5 @@
 * Raw data: WeighIn/data/polls.db (open with sqlite or alternative) 
 * Sample input/output for QC: WeighIn/data/polls.db (open with sqlite or alternative) 
 * Sample input/output for aggregation: WeighIn/data/polls.db (open with sqlite or alternative) 
-* Code for QC: WeighIn/server.py
+* Code for QC: WeighIn/quality_control.py
 * Code for aggregation: WeighIn/server.py

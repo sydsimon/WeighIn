@@ -7,7 +7,7 @@ app = Flask(__name__)
 DATABASE = 'data/polls.db'
 
 # Initialize Perspective API client
-API_KEY = 'AIzaSyDODqNb52YIx-E_-qHiwE0fk04j2qeoVCo'
+API_KEY = 'api'
 client = discovery.build(
     "commentanalyzer",
     "v1alpha1",
