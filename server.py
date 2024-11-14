@@ -2,7 +2,7 @@ from flask import Flask, g, jsonify, request
 import sqlite3
 
 app = Flask(__name__)
-DATABASE = 'polls.db'
+DATABASE = 'data/polls.db'
 
 def get_db():
     db = getattr(g, '_database', None)
