@@ -2,12 +2,19 @@ from flask import Flask, g, jsonify, request
 import sqlite3
 from googleapiclient import discovery
 import json
+from dotenv import load_dotenv
+import os
+from quality_control import quality_control_bp
 
+load_dotenv()
 app = Flask(__name__)
 DATABASE = 'data/polls.db'
+app.register_blueprint(quality_control_bp, url_prefix='/quality-control')
+
+
 
 # Initialize Perspective API client
-API_KEY = 'AIzaSyDODqNb52YIx-E_-qHiwE0fk04j2qeoVCo'
+API_KEY = os.getenv("API_KEY")
 client = discovery.build(
     "commentanalyzer",
     "v1alpha1",
