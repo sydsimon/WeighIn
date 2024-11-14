@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 import random
 from server import get_db
+import re
 
 quality_control_bp = Blueprint('quality_control', __name__)
 
@@ -29,6 +30,7 @@ def get_random_quality_control_poll():
         "response4": r4
     }), 200
 
+
 @quality_control_bp.route('/check-quality-control-response', methods=['POST'])
 def check_quality_control_response():
     data = request.get_json()
@@ -42,12 +44,30 @@ def check_quality_control_response():
     db = get_db()
     cursor = db.cursor()
 
-    # Query to get the correct response for the quality control poll
-    cursor.execute("SELECT response1, response2, response3, response4 FROM polls WHERE questionid = ?", (questionid,))
+    cursor.execute("""
+        SELECT question, response1, response2, response3, response4
+        FROM polls 
+        WHERE questionid = ? AND authorid = 0
+    """, (questionid,))
+    
     poll = cursor.fetchone()
     if not poll:
-        return jsonify({"error": "Poll not found."}), 404
+        return jsonify({"error": "Quality control question not found."}), 404
 
-    correct_response = next(i for i, r in enumerate(poll, start=1) if r is not None and response == i)
+    question_text, *options = poll
 
-    return jsonify({"is_correct": correct_response}), 200
+    # Extract the correct answer text from the question (text within quotes)
+    match = re.search(r'"(.*?)"', question_text)
+    if not match:
+        return jsonify({"error": "No correct answer specified in question text."}), 400
+
+    correct_text = match.group(1).strip().lower()
+
+    correct_option_index = next((i + 1 for i, option in enumerate(options) if option and option.strip().lower() == correct_text), None)
+
+    if correct_option_index is None:
+        return jsonify({"error": "Correct answer not found in response options."}), 400
+
+    is_correct = str(response) == str(correct_option_index)
+
+    return jsonify({"is_correct": is_correct}), 200
