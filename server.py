@@ -51,8 +51,8 @@ def init_db():
 
     db.commit()
 
-    add_mock_data(cursor)
-    db.commit()
+    # add_mock_data(cursor)
+    # db.commit()
 
 def add_mock_data(cursor):
     cursor.execute("SELECT COUNT(*) FROM users")
