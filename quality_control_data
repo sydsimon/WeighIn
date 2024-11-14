@@ -13,3 +13,8 @@ curl -X POST http://127.0.0.1:5000/add-poll \
   "response4": "I am smart"
 }'
 
+# output should be:
+{
+  "error": "Question contains inappropriate content. Please rephrase.",
+  "toxicity_score": 0.85  # Example score, actual score may vary
+}
