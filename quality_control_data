@@ -1,0 +1,15 @@
+# Copy and paste this into a different terminal while server.py is running to check censoring
+
+curl -X POST http://127.0.0.1:5000/add-poll \
+-H "Content-Type: application/json" \
+-d '{
+  "authorid": 1,
+  "question": "Why are you so stupid?",
+  "description": "A poll about intelligence",
+  "start_time": "2024-11-15 10:00",
+  "response1": "No idea",
+  "response2": "Because I am dumb",
+  "response3": "I am not stupid",
+  "response4": "I am smart"
+}'
+
