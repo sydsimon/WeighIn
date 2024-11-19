@@ -74,3 +74,5 @@ pnpm-lock.yaml
 
 # TypeScript build outputs (if you use TypeScript in your Vite app)
 *.tsbuildinfo
+
+weighin_venv/
