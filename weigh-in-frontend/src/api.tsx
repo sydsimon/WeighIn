@@ -1,14 +1,12 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000';
-
-interface User {
+export interface User {
   id: number;
   username: string;
   password: string;
 }
 
-interface Poll {
+export interface Poll {
   id: number;
   authorId: number;
   question: string;
@@ -20,41 +18,33 @@ interface Poll {
   response4: string;
 }
 
-interface Response {
+export interface Response {
   userId: number;
   pollId: number;
   response: number;
 }
 
-export async function createUser(userData: User): Promise<AxiosResponse<any>> {
-  return await axios.post(`${API_BASE_URL}/add-user`, userData);
-}
+const api = axios.create({
+  baseURL: 'http://localhost:5001',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
-export async function createPoll(pollData: Poll): Promise<AxiosResponse<any>> {
-  return await axios.post(`${API_BASE_URL}/add-poll`, pollData);
-}
+// Function to bypass potential CORS issues temporary
+api.interceptors.request.use((config) => {
+  config.headers['Access-Control-Allow-Origin'] = '*'; // Ensure proper CORS handling
+  return config;
+});
 
-export async function addResponse(responseData: Response): Promise<AxiosResponse<any>> {
-  return await axios.post(`${API_BASE_URL}/add-response`, responseData);
-}
+export const getPolls = async (): Promise<Poll[]> => {
+  try {
+    const response = await api.get<Poll[]>('/get-polls');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching polls:', error);
+    throw error;
+  }
+};
 
-export async function getMaxResponsePerQuestion(): Promise<AxiosResponse<any>> {
-  return await axios.get(`${API_BASE_URL}/max-response-per-question`);
-}
-
-export async function getPollResults(pollId: number): Promise<AxiosResponse<any>> {
-  return await axios.get(`${API_BASE_URL}/get-poll-results/${pollId}`);
-}
-
-export async function getRandomQualityControlPoll(): Promise<AxiosResponse<any>> {
-  return await axios.get(`${API_BASE_URL}/quality-control/get-random-quality-control-poll`);
-}
-  
-export async function checkQualityControlResponse(userId: number, pollId: number, response: number): Promise<AxiosResponse<any>> {
-  return await axios.post(`${API_BASE_URL}/quality-control/check-quality-control-response`, {
-    userId,
-    pollId,
-    response,
-  });
-}
-  
+export default api;

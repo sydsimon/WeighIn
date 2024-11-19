@@ -6,9 +6,15 @@ from dotenv import load_dotenv
 import os
 # from quality_control import quality_control_bp
 import re
+from flask_cors import CORS
+
+app = Flask(__name__)
+
+###make sure to change this for production###
+CORS(app, resources={r"/*": {"origins": "*"}})
+###make sure to change this for production###
 
 load_dotenv()
-app = Flask(__name__)
 DATABASE = 'data/polls.db'
 # app.register_blueprint(quality_control_bp, url_prefix='/quality-control')
 
@@ -389,7 +395,38 @@ def check_quality_control_response():
 
     return jsonify({"is_correct": is_correct}), 200
 
+@app.route('/get-polls', methods=['GET'])
+def get_polls():
+    db = get_db()
+    cursor = db.cursor()
 
+    cursor.execute("""
+        SELECT questionid, authorid, question, description, start_time, 
+               response1, response2, response3, response4 
+        FROM polls 
+        WHERE authorid != 0 
+        ORDER BY start_time DESC
+    """)
+    
+    polls = cursor.fetchall()
+
+    # Convert polls to list of dictionaries
+    poll_list = []
+    for poll in polls:
+        poll_dict = {
+            "id": poll[0],
+            "authorId": poll[1],
+            "question": poll[2],
+            "description": poll[3],
+            "startTime": poll[4],
+            "response1": poll[5],
+            "response2": poll[6],
+            "response3": poll[7],
+            "response4": poll[8]
+        }
+        poll_list.append(poll_dict)
+
+    return jsonify(poll_list), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
