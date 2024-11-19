@@ -15,7 +15,8 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 ###make sure to change this for production###
 
 load_dotenv()
-DATABASE = 'data/polls.db'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, 'data', 'polls.db')
 # app.register_blueprint(quality_control_bp, url_prefix='/quality-control')
 
 
