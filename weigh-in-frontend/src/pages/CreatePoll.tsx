@@ -4,7 +4,7 @@ import { AlertCircle, Clock, Home, Menu, User } from 'lucide-react';
 interface FormData {
   header: string;
   description: string;
-  choices: [string, string];
+  choices: [string, string, string, string];
   deadline: string;
 }
 
@@ -12,7 +12,7 @@ const CreatePoll: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     header: '',
     description: '',
-    choices: ['', ''],
+    choices: ['', '', '', ''],
     deadline: ''
   });
 
@@ -28,7 +28,7 @@ const CreatePoll: React.FC = () => {
   };
 
   const handleChoiceChange = (index: number, value: string) => {
-    const newChoices = [...formData.choices] as [string, string];
+    const newChoices = [...formData.choices] as [string, string, string, string];
     newChoices[index] = value;
     setFormData({
       ...formData,
@@ -48,7 +48,7 @@ const CreatePoll: React.FC = () => {
       return;
     }
     if (formData.choices.some(choice => !choice.trim())) {
-      setError('Please fill in both choices');
+      setError('Please fill in all choices');
       return;
     }
     if (!formData.deadline) {
@@ -63,7 +63,7 @@ const CreatePoll: React.FC = () => {
       setFormData({
         header: '',
         description: '',
-        choices: ['', ''],
+        choices: ['', '', '', ''],
         deadline: ''
       });
       setSuccess('');
