@@ -1,6 +1,6 @@
 # Copy and paste this into a different terminal while server.py is running to check censoring
 
-curl -X POST http://127.0.0.1:5000/add-poll \
+curl -X POST http://127.0.0.1:5001/add-poll \
 -H "Content-Type: application/json" \
 -d '{
   "authorid": 1,
@@ -18,3 +18,18 @@ curl -X POST http://127.0.0.1:5000/add-poll \
   "error": "Question contains inappropriate content. Please rephrase.",
   "toxicity_score": 0.85  # Example score, actual score may vary
 }
+
+
+# Quality control check
+curl -X POST http://127.0.0.1:5001/check-quality-control-response \
+-H "Content-Type: application/json" \
+-d '{
+  "userid": 1,
+  "questionid": 4,
+  "response": 1
+}'
+
+# should return correct 
+
+# get random quality control question
+curl -X GET http://127.0.0.1:5001/get-random-quality-control-poll
