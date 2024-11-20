@@ -173,6 +173,29 @@ def add_user():
         return jsonify({"message": "User added successfully!"}), 201
     except sqlite3.IntegrityError:
         return jsonify({"error": "User could not be added."}), 500
+    
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    if not username or not password:
+        return jsonify({"error": "Username and password are required."}), 400
+
+    db = get_db()
+    cursor = db.cursor()
+    
+    cursor.execute("SELECT userid, username, password FROM users WHERE username = ?", (username,))
+    user = cursor.fetchone()
+    
+    if user and user[2] == password:
+        return jsonify({
+            "userid": user[0],
+            "username": user[1]
+        }), 200
+    else:
+        return jsonify({"error": "Invalid username or password."}), 401
 
 @app.route('/add-poll', methods=['POST'])
 def add_poll():

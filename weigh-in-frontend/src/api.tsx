@@ -1,16 +1,16 @@
 import axios from 'axios';
 
 export interface User {
-  id: number;
+  userid?: number;
   username: string;
   password: string;
 }
 
 export interface Poll {
-  id: number;
+  id?: number;
   authorId: number;
   question: string;
-  description: string;
+  description?: string;
   startTime: string;
   response1: string;
   response2: string;
@@ -18,10 +18,20 @@ export interface Poll {
   response4: string;
 }
 
-export interface Response {
-  userId: number;
-  pollId: number;
+export interface PollResponse {
+  userid: number;
+  questionid: number;
   response: number;
+}
+
+export interface LoginCredentials {
+  username: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  userid: number;
+  username: string;
 }
 
 const api = axios.create({
@@ -31,20 +41,42 @@ const api = axios.create({
   },
 });
 
-// Function to bypass potential CORS issues temporary
+// Add request interceptor for CORS
 api.interceptors.request.use((config) => {
-  config.headers['Access-Control-Allow-Origin'] = '*'; // Ensure proper CORS handling
+  config.headers['Access-Control-Allow-Origin'] = '*';
   return config;
 });
 
-export const getPolls = async (): Promise<Poll[]> => {
-  try {
-    const response = await api.get<Poll[]>('/get-polls');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching polls:', error);
-    throw error;
+api.interceptors.response.use(
+  (response) => response.data,
+  (error) => {
+    const message = error.response?.data?.error || error.message || 'An error occurred';
+    throw new Error(message);
   }
+);
+
+// User Authentication
+export const createAccount = async (userData: User): Promise<any> => {
+  return api.post('/add-user', userData);
 };
 
-export default api;
+export const loginUser = async (credentials: LoginCredentials): Promise<LoginResponse> => {
+  return api.post('/login', credentials);
+};
+
+// Polls
+export const getPolls = async (): Promise<Poll[]> => {
+  return api.get('/get-polls');
+};
+
+export const createPoll = async (pollData: Poll): Promise<any> => {
+  return api.post('/add-poll', pollData);
+};
+
+export const submitPollResponse = async (responseData: PollResponse): Promise<any> => {
+  return api.post('/add-response', responseData);
+};
+
+export const getPollResults = async (questionId: number): Promise<any> => {
+  return api.get(`/get-poll-results/${questionId}`);
+};
