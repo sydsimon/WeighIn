@@ -209,6 +209,8 @@ def add_poll():
     response3 = data.get('response3')
     response4 = data.get('response4')
 
+    print([authorid, question, start_time, response1, response2, response3, response4])
+
     if not all([authorid, question, start_time, response1, response2, response3, response4]):
         return jsonify({"error": "All fields except description are required."}), 400
     

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPolls, Poll } from "../api";
+import { AuthContext } from "../AuthContext";
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
     const [polls, setPolls] = useState<Poll[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const { user, logout } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchPolls = async () => {
@@ -24,7 +26,19 @@ const Home: React.FC = () => {
     }, []);
 
     const handlePollClick = (poll: Poll) => {
-        navigate(`/poll/${poll.id}`);
+        if (user) {
+            navigate(`/poll/${poll.id}`);
+        } else {
+            navigate("/login");
+        }
+    };
+
+    const handleCreatePoll = () => {
+        if (user) {
+            navigate("/create-poll");
+        } else {
+            navigate("/login");
+        }
     };
 
     if (isLoading) {
@@ -57,31 +71,56 @@ const Home: React.FC = () => {
                              focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                 />
                 <div className="flex items-center space-x-4">
-                    <button 
-                        onClick={() => navigate("/login")} 
-                        className="px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 
-                                 text-white rounded-md transition-colors"
-                    >
-                        Log In
-                    </button>
-                    <button 
-                        onClick={() => navigate("/create-account")} 
-                        className="px-4 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 
-                                 text-white rounded-md transition-colors"
-                    >
-                        Join Now
-                    </button>
+                    {user ? (
+                        <div className="flex items-center space-x-4">
+                            <span className="text-gray-900 dark:text-gray-100">
+                                Welcome, {user.username}
+                            </span>
+                            <button 
+                                onClick={logout}
+                                className="px-4 py-2 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 
+                                         text-white rounded-md transition-colors"
+                            >
+                                Log Out
+                            </button>
+                        </div>
+                    ) : (
+                        <>
+                            <button 
+                                onClick={() => navigate("/login")} 
+                                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 
+                                         text-white rounded-md transition-colors"
+                            >
+                                Log In
+                            </button>
+                            <button 
+                                onClick={() => navigate("/create-account")} 
+                                className="px-4 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 
+                                         text-white rounded-md transition-colors"
+                            >
+                                Join Now
+                            </button>
+                        </>
+                    )}
                 </div>
             </header>
 
             {/* Main Content */}
             <div className="p-6">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-                    Answer the following polls from other users
+                    {user 
+                        ? "Answer the following polls from other users" 
+                        : "Sign in to view and participate in polls"
+                    }
                 </h2>
 
                 {polls.length === 0 ? (
-                    <div className="text-center text-gray-500 dark:text-gray-400">No polls available</div>
+                    <div className="text-center text-gray-500 dark:text-gray-400">
+                        {user 
+                            ? "No polls available" 
+                            : "Please log in to see available polls"
+                        }
+                    </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {polls.map((poll, index) => (
@@ -119,7 +158,7 @@ const Home: React.FC = () => {
 
                 <div className="mt-6 text-center">
                     <button 
-                        onClick={() => navigate("/create-poll")} 
+                        onClick={handleCreatePoll}
                         className="px-8 py-3 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 
                                  text-white rounded-full text-lg transition-colors"
                     >

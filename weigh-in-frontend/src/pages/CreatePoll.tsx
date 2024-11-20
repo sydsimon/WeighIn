@@ -1,15 +1,11 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { AlertCircle, Clock, Home, Menu, User } from 'lucide-react';
-
-interface FormData {
-  header: string;
-  description: string;
-  choices: [string, string, string, string];
-  deadline: string;
-}
+import { createPoll, Poll } from '../api';
+import { useAuth } from '../AuthContext';
 
 const CreatePoll: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const { user } = useAuth();
+  const [formData, setFormData] = useState({
     header: '',
     description: '',
     choices: ['', '', '', ''],
@@ -18,6 +14,7 @@ const CreatePoll: React.FC = () => {
 
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -28,7 +25,7 @@ const CreatePoll: React.FC = () => {
   };
 
   const handleChoiceChange = (index: number, value: string) => {
-    const newChoices = [...formData.choices] as [string, string, string, string];
+    const newChoices = [...formData.choices];
     newChoices[index] = value;
     setFormData({
       ...formData,
@@ -36,9 +33,16 @@ const CreatePoll: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    
+    setError('');
+    setSuccess('');
+
+    if (!user) {
+      setError('Please log in to create a poll');
+      return;
+    }  
+    // Validation
     if (!formData.header.trim()) {
       setError('Please enter a poll header');
       return;
@@ -55,19 +59,40 @@ const CreatePoll: React.FC = () => {
       setError('Please set a deadline');
       return;
     }
-
-    console.log('Submitting poll data:', formData);
-    setSuccess('Poll created successfully!');
-    
-    setTimeout(() => {
-      setFormData({
-        header: '',
-        description: '',
-        choices: ['', '', '', ''],
-        deadline: ''
-      });
-      setSuccess('');
-    }, 2000);
+  
+    // Prepare poll data for API
+    const pollData: Poll = {
+      authorId: user.userid, // Ensure this is not 0
+      question: formData.header,
+      description: formData.description,
+      startTime: new Date(formData.deadline).toISOString(), // Ensure ISO string format
+      response1: formData.choices[0],
+      response2: formData.choices[1],
+      response3: formData.choices[2],
+      response4: formData.choices[3]
+    };
+  
+    try {
+      setIsSubmitting(true);
+      await createPoll(pollData);
+      
+      setSuccess('Poll created successfully!');
+      
+      // Reset form after 2 seconds
+      setTimeout(() => {
+        setFormData({
+          header: '',
+          description: '',
+          choices: ['', '', '', ''],
+          deadline: ''
+        });
+        setSuccess('');
+      }, 2000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to create poll');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -188,13 +213,17 @@ const CreatePoll: React.FC = () => {
 
           <button
             type="submit"
-            className="w-full bg-green-500 dark:bg-green-600 text-white py-3 rounded-lg 
+            disabled={isSubmitting}
+            className={`w-full text-white py-3 rounded-lg 
                      hover:bg-green-600 dark:hover:bg-green-700 
                      focus:outline-none focus:ring-2 focus:ring-green-300 dark:focus:ring-green-600 
                      focus:ring-offset-2 dark:focus:ring-offset-gray-900
-                     transition-colors"
+                     transition-colors
+                     ${isSubmitting 
+                       ? 'bg-green-300 dark:bg-green-500 cursor-not-allowed' 
+                       : 'bg-green-500 dark:bg-green-600'}`}
           >
-            Create Poll
+            {isSubmitting ? 'Creating Poll...' : 'Create Poll'}
           </button>
         </form>
       </div>

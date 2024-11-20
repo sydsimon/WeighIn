@@ -70,7 +70,18 @@ export const getPolls = async (): Promise<Poll[]> => {
 };
 
 export const createPoll = async (pollData: Poll): Promise<any> => {
-  return api.post('/add-poll', pollData);
+  const backendPollData = {
+    authorid: pollData.authorId,
+    question: pollData.question,
+    description: pollData.description || '',
+    start_time: pollData.startTime,
+    response1: pollData.response1,
+    response2: pollData.response2,
+    response3: pollData.response3,
+    response4: pollData.response4
+  };
+
+  return api.post('/add-poll', backendPollData);
 };
 
 export const submitPollResponse = async (responseData: PollResponse): Promise<any> => {

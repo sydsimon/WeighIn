@@ -1,25 +1,25 @@
-import React, { createContext, useContext, useState, } from 'react';
-
-interface AuthUser {
-  userid: number;
-  username: string;
-}
+import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { LoginResponse } from './api';
 
 interface AuthContextType {
-  user: AuthUser | null;
-  login: (user: AuthUser) => void;
+  user: LoginResponse | null;
+  login: (userData: LoginResponse) => void;
   logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  login: () => {},
+  logout: () => {}
+});
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<AuthUser | null>(() => {
-    const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<LoginResponse | null>(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
   });
 
-  const login = (userData: AuthUser) => {
+  const login = (userData: LoginResponse) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
   };
@@ -36,10 +36,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+export const useAuth = () => useContext(AuthContext);
+
+export { AuthContext };
