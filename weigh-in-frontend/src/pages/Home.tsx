@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { getPolls, Poll } from "../api";
 import { AuthContext } from "../AuthContext";
 import QualityControl from "./QualityControl";
+import Header from './Header';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
     const [polls, setPolls] = useState<Poll[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false); // Changed to false by default
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const { user, logout, qualityControlPassed, setQualityControlPassed } = useContext(AuthContext);
 
@@ -28,7 +29,6 @@ const Home: React.FC = () => {
         if (user && qualityControlPassed) {
             fetchPolls();
         } else {
-            // Reset polls when user logs out
             setPolls([]);
             setError(null);
             setIsLoading(false);
@@ -55,7 +55,6 @@ const Home: React.FC = () => {
         }
     };
 
-    // If user is logged in but hasn't passed quality control, show the quality control component
     if (user && !qualityControlPassed) {
         return (
             <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
@@ -66,55 +65,9 @@ const Home: React.FC = () => {
 
     return (
         <div className="w-screen h-screen bg-gray-50 dark:bg-gray-900">
-            <header className="flex items-center justify-between p-4 bg-green-200 dark:bg-green-900">
-                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">Weigh IN</div>
-                {/* {user && (
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        className="w-1/3 px-2 py-1 border rounded-md focus:outline-none 
-                                 bg-white dark:bg-gray-800 
-                                 text-gray-900 dark:text-gray-100
-                                 border-gray-300 dark:border-gray-600
-                                 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                    />
-                )} */}
-                <div className="flex items-center space-x-4">
-                    {user ? (
-                        <div className="flex items-center space-x-4">
-                            <span className="text-gray-900 dark:text-gray-100">
-                                Welcome, {user.username}
-                            </span>
-                            <button 
-                                onClick={logout}
-                                className="px-4 py-2 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 
-                                         text-white rounded-md transition-colors"
-                            >
-                                Log Out
-                            </button>
-                        </div>
-                    ) : (
-                        <>
-                            <button 
-                                onClick={() => navigate("/login")} 
-                                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 
-                                         text-white rounded-md transition-colors"
-                            >
-                                Log In
-                            </button>
-                            <button 
-                                onClick={() => navigate("/create-account")} 
-                                className="px-4 py-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 
-                                         text-white rounded-md transition-colors"
-                            >
-                                Join Now
-                            </button>
-                        </>
-                    )}
-                </div>
-            </header>
+            <Header showHomeButton={false} />
 
-            {/* Main Content */}
+            {/* Rest of the component remains the same */}
             <div className="p-6">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
                     {user 

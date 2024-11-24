@@ -13,6 +13,11 @@ curl -X POST http://127.0.0.1:5001/add-poll \
   "response4": "I am smart"
 }'
 
+INSERT INTO polls (questionid, authorid, question, description, start_time, response1, response2, response3, response4) VALUES
+(4, 0, 'Select the "circle" option', 'A simple test question to ensure correct selection.', '2024-11-14 10:00:00', 'Circle', 'Square', 'Triangle', 'Rectangle'),
+(5, 0, 'Select the "red" option', 'A quality control question for color recognition.', '2024-11-14 10:05:00', 'Blue', 'Green', 'Red', 'Yellow'),
+(6, 0, 'Select the "5" option', 'A numerical selection quality control question.', '2024-11-14 10:10:00', '3', '5', '8', '12');
+
 # output should be:
 {
   "error": "Question contains inappropriate content. Please rephrase.",
