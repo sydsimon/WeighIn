@@ -1,41 +1,69 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
-import { LoginResponse } from './api';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-interface AuthContextType {
-  user: LoginResponse | null;
-  login: (userData: LoginResponse) => void;
-  logout: () => void;
+interface User {
+  userid: number;
+  username: string;
 }
 
-const AuthContext = createContext<AuthContextType>({
+interface AuthContextType {
+  user: User | null;
+  qualityControlPassed: boolean;
+  login: (userData: User) => void;
+  logout: () => void;
+  setQualityControlPassed: (passed: boolean) => void;
+}
+
+export const AuthContext = createContext<AuthContextType>({
   user: null,
+  qualityControlPassed: false,
   login: () => {},
-  logout: () => {}
+  logout: () => {},
+  setQualityControlPassed: () => {},
 });
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<LoginResponse | null>(() => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null;
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  const login = (userData: LoginResponse) => {
+  const [qualityControlPassed, setQualityControlPassed] = useState(() => {
+    return localStorage.getItem('qualityControlPassed') === 'true';
+  });
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+      localStorage.removeItem('qualityControlPassed');
+    }
+  }, [user]);
+
+  const login = (userData: User) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
+    setQualityControlPassed(false);
     localStorage.removeItem('user');
+    localStorage.removeItem('qualityControlPassed');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider 
+      value={{ 
+        user, 
+        qualityControlPassed,
+        login, 
+        logout,
+        setQualityControlPassed
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);
-
-export { AuthContext };

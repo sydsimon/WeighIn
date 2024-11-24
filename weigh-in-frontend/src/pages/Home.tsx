@@ -2,28 +2,42 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPolls, Poll } from "../api";
 import { AuthContext } from "../AuthContext";
+import QualityControl from "./QualityControl";
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
     const [polls, setPolls] = useState<Poll[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false); // Changed to false by default
     const [error, setError] = useState<string | null>(null);
-    const { user, logout } = useContext(AuthContext);
+    const { user, logout, qualityControlPassed, setQualityControlPassed } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchPolls = async () => {
+            setIsLoading(true);
             try {
                 const data = await getPolls();
                 setPolls(data);
-                setIsLoading(false);
             } catch (err) {
                 setError('Failed to load polls. Please try again later.');
+                console.error(err);
+            } finally {
                 setIsLoading(false);
             }
         };
 
-        fetchPolls();
-    }, []);
+        if (user && qualityControlPassed) {
+            fetchPolls();
+        } else {
+            // Reset polls when user logs out
+            setPolls([]);
+            setError(null);
+            setIsLoading(false);
+        }
+    }, [user, qualityControlPassed]);
+
+    const handleQualityControlPass = () => {
+        setQualityControlPassed(true);
+    };
 
     const handlePollClick = (poll: Poll) => {
         if (user) {
@@ -41,18 +55,11 @@ const Home: React.FC = () => {
         }
     };
 
-    if (isLoading) {
+    // If user is logged in but hasn't passed quality control, show the quality control component
+    if (user && !qualityControlPassed) {
         return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-                <div className="text-xl text-gray-800 dark:text-gray-200">Loading polls...</div>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-                <div className="text-xl text-red-500 dark:text-red-400">{error}</div>
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+                <QualityControl onPass={handleQualityControlPass} />
             </div>
         );
     }
@@ -61,15 +68,17 @@ const Home: React.FC = () => {
         <div className="w-screen h-screen bg-gray-50 dark:bg-gray-900">
             <header className="flex items-center justify-between p-4 bg-green-200 dark:bg-green-900">
                 <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">Weigh IN</div>
-                <input
-                    type="text"
-                    placeholder="Search"
-                    className="w-1/3 px-2 py-1 border rounded-md focus:outline-none 
-                             bg-white dark:bg-gray-800 
-                             text-gray-900 dark:text-gray-100
-                             border-gray-300 dark:border-gray-600
-                             focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                />
+                {/* {user && (
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        className="w-1/3 px-2 py-1 border rounded-md focus:outline-none 
+                                 bg-white dark:bg-gray-800 
+                                 text-gray-900 dark:text-gray-100
+                                 border-gray-300 dark:border-gray-600
+                                 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                    />
+                )} */}
                 <div className="flex items-center space-x-4">
                     {user ? (
                         <div className="flex items-center space-x-4">
@@ -114,12 +123,21 @@ const Home: React.FC = () => {
                     }
                 </h2>
 
-                {polls.length === 0 ? (
+                {isLoading ? (
+                    <div className="text-center text-gray-800 dark:text-gray-200">
+                        Loading polls...
+                    </div>
+                ) : error ? (
+                    <div className="text-center text-red-500 dark:text-red-400">
+                        {error}
+                    </div>
+                ) : !user ? (
                     <div className="text-center text-gray-500 dark:text-gray-400">
-                        {user 
-                            ? "No polls available" 
-                            : "Please log in to see available polls"
-                        }
+                        Please log in to see available polls
+                    </div>
+                ) : polls.length === 0 ? (
+                    <div className="text-center text-gray-500 dark:text-gray-400">
+                        No polls available
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -156,15 +174,17 @@ const Home: React.FC = () => {
                     </div>
                 )}
 
-                <div className="mt-6 text-center">
-                    <button 
-                        onClick={handleCreatePoll}
-                        className="px-8 py-3 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 
-                                 text-white rounded-full text-lg transition-colors"
-                    >
-                        Create Question
-                    </button>
-                </div>
+                {user && (
+                    <div className="mt-6 text-center">
+                        <button 
+                            onClick={handleCreatePoll}
+                            className="px-8 py-3 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 
+                                     text-white rounded-full text-lg transition-colors"
+                        >
+                            Create Question
+                        </button>
+                    </div>
+                )}
             </div>
 
             <footer className="flex justify-center items-center space-x-3 py-4 bg-green-200 dark:bg-green-900">

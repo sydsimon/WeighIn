@@ -34,6 +34,27 @@ export interface LoginResponse {
   username: string;
 }
 
+// New interfaces for quality control
+export interface QualityControlPoll {
+  questionid: number;
+  question: string;
+  description: string;
+  response1: string;
+  response2: string;
+  response3: string;
+  response4: string;
+}
+
+export interface QualityControlResponse {
+  userid: number;
+  questionid: number;
+  response: number;
+}
+
+export interface QualityControlResult {
+  is_correct: boolean;
+}
+
 const baseURL =
   process.env.NODE_ENV === 'production'
     ? 'https://ngmolina1.pythonanywhere.com/' // Replace with your production backend URL
@@ -103,4 +124,12 @@ export const getPoll = async (pollId: number): Promise<Poll> => {
 
 export const checkUserResponse = async (userId: number, questionId: number): Promise<{hasResponded: boolean, response: number | null}> => {
   return api.get(`/check-user-response/${userId}/${questionId}`);
+};
+
+export const getRandomQualityControlPoll = async (): Promise<QualityControlPoll> => {
+  return api.get('/get-random-quality-control-poll');
+};
+
+export const checkQualityControlResponse = async (responseData: QualityControlResponse): Promise<QualityControlResult> => {
+  return api.post('/check-quality-control-response', responseData);
 };
