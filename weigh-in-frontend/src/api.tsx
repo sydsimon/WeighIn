@@ -34,8 +34,13 @@ export interface LoginResponse {
   username: string;
 }
 
+const baseURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://ngmolina1.pythonanywhere.com/' // Replace with your production backend URL
+    : 'http://localhost:5001'; // Local development backend URL
+
 const api = axios.create({
-  baseURL: 'http://localhost:5001',
+  baseURL: baseURL,
   headers: {
     'Content-Type': 'application/json',
   },

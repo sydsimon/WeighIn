@@ -31,5 +31,13 @@ curl -X POST http://127.0.0.1:5001/check-quality-control-response \
 
 # should return correct 
 
+curl -X POST http://127.0.0.1:5001/check-quality-control-response \
+-H "Content-Type: application/json" \
+-d '{
+  "userid": 1,
+  "questionid": 4,
+  "response": 2
+}'
+
 # get random quality control question
 curl -X GET http://127.0.0.1:5001/get-random-quality-control-poll
