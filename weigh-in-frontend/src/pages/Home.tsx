@@ -10,7 +10,7 @@ const Home: React.FC = () => {
     const [polls, setPolls] = useState<Poll[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const { user, logout, qualityControlPassed, setQualityControlPassed } = useContext(AuthContext);
+    const { user, qualityControlPassed, setQualityControlPassed } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchPolls = async () => {

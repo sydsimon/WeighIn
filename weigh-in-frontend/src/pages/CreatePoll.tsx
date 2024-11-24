@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { AlertCircle, Clock, Home, Menu, User } from 'lucide-react';
+import { AlertCircle, Clock } from 'lucide-react';
 import { createPoll, Poll } from '../api';
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import Header from './Header';
 
 const CreatePoll: React.FC = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  useNavigate();
   const [formData, setFormData] = useState({
     header: '',
     description: '',
