@@ -100,3 +100,7 @@ export const getPollResults = async (questionId: number): Promise<any> => {
 export const getPoll = async (pollId: number): Promise<Poll> => {
   return api.get(`/get-poll/${pollId}`);
 };
+
+export const checkUserResponse = async (userId: number, questionId: number): Promise<{hasResponded: boolean, response: number | null}> => {
+  return api.get(`/check-user-response/${userId}/${questionId}`);
+};

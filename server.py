@@ -486,5 +486,23 @@ def get_poll(questionid):
     return jsonify(poll_dict), 200
 
 
+@app.route('/check-user-response/<int:userid>/<int:questionid>', methods=['GET'])
+def check_user_response(userid, questionid):
+    db = get_db()
+    cursor = db.cursor()
+    
+    cursor.execute("""
+        SELECT response 
+        FROM responses 
+        WHERE userid = ? AND questionid = ?
+    """, (userid, questionid))
+    
+    response = cursor.fetchone()
+    
+    return jsonify({
+        "hasResponded": response is not None,
+        "response": response[0] if response else None
+    }), 200
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
