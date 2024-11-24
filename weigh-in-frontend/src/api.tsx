@@ -91,3 +91,7 @@ export const submitPollResponse = async (responseData: PollResponse): Promise<an
 export const getPollResults = async (questionId: number): Promise<any> => {
   return api.get(`/get-poll-results/${questionId}`);
 };
+
+export const getPoll = async (pollId: number): Promise<Poll> => {
+  return api.get(`/get-poll/${pollId}`);
+};

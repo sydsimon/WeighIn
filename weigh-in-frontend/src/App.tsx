@@ -9,6 +9,7 @@ import CreateAccount from "./pages/CreateAccount";
 import Login from "./pages/Login";
 import CreatePoll from "./pages/CreatePoll";
 import Home from "./pages/Home";
+import PollPage from './pages/PollPage';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/create-account" element={<CreateAccount />} />
           <Route path="/login" element={<Login />} />
           <Route path="/create-poll" element={<CreatePoll />} />
+          <Route path="/poll/:id" element={<PollPage />} />
         </Routes>
       </Router>
     </AuthProvider>

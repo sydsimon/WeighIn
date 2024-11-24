@@ -454,5 +454,37 @@ def get_polls():
 
     return jsonify(poll_list), 200
 
+@app.route('/get-poll/<int:questionid>', methods=['GET'])
+def get_poll(questionid):
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute("""
+        SELECT questionid, authorid, question, description, start_time, 
+               response1, response2, response3, response4 
+        FROM polls 
+        WHERE questionid = ? AND authorid != 0
+    """, (questionid,))
+    
+    poll = cursor.fetchone()
+    
+    if not poll:
+        return jsonify({"error": "Poll not found"}), 404
+
+    poll_dict = {
+        "id": poll[0],
+        "authorId": poll[1],
+        "question": poll[2],
+        "description": poll[3],
+        "startTime": poll[4],
+        "response1": poll[5],
+        "response2": poll[6],
+        "response3": poll[7],
+        "response4": poll[8]
+    }
+
+    return jsonify(poll_dict), 200
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
