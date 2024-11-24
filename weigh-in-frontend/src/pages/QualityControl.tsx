@@ -11,7 +11,7 @@ const QualityControl: React.FC<QualityControlProps> = ({ onPass }) => {
   const [selectedResponse, setSelectedResponse] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
+  useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   useEffect(() => {
