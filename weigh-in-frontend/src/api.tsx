@@ -95,6 +95,10 @@ export const getPolls = async (): Promise<Poll[]> => {
   return api.get('/get-polls');
 };
 
+export const getResponses = async (): Promise<PollResponse[]> => {
+  return api.get('/get-responses');
+};
+
 export const createPoll = async (pollData: Poll): Promise<any> => {
   const backendPollData = {
     authorid: pollData.authorId,

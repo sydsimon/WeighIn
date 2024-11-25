@@ -280,6 +280,29 @@ def add_response():
     except sqlite3.IntegrityError:
         return jsonify({"error": "Response already exists or could not be added."}), 500
 
+@app.route('/get-responses', methods=['GET'])
+def get_responses():
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute("""
+        SELECT userid, questionid, response
+        FROM responses
+    """)
+
+    responses = cursor.fetchall()
+
+    response_list = []
+    for response in responses:
+        response_dict = {
+            "userid": response[0],
+            "questionid": response[1],
+            "response": response[2],
+        }
+        response_list.append(response_dict)
+
+    return jsonify(response_list), 200
+
 @app.route('/max-response-per-question', methods=['GET'])
 def max_response_per_question():
     db = get_db()
