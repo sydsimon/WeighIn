@@ -12,7 +12,7 @@ const Profile: React.FC = () => {
     const [userResponses, setUserResponses] = useState<PollResponse[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const { user, logout } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchPolls = async () => {
@@ -68,13 +68,13 @@ const Profile: React.FC = () => {
         }
     };
 
-    const handleHome = () => {
-        if (user) {
-            navigate("/");
-        } else {
-            navigate("/login");
-        }
-    };
+    // const handleHome = () => {
+    //     if (user) {
+    //         navigate("/");
+    //     } else {
+    //         navigate("/login");
+    //     }
+    // };
 
     if (isLoading) {
         return (
