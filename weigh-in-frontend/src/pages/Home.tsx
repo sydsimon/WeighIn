@@ -120,7 +120,7 @@ const Home: React.FC = () => {
                                     {poll.description}
                                 </div>
                                 <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                                    Created: {new Date(poll.startTime).toLocaleDateString()}
+                                    Deadline: {new Date(poll.startTime).toLocaleDateString()}
                                 </div>
                             </div>
                         ))}
