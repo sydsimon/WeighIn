@@ -5,7 +5,7 @@
 "WeighIn" is a crowdsourcing platform designed to tackle indecisiveness in group decision-making by allowing users to post questions or dilemmas and receive multiple-choice feedback from the crowd. Targeting college students and young adults, the platform functions like a social media tool where users can seek opinions on everyday decisions—ranging from where to eat, what to wear, or even broader life choices. Participants provide responses anonymously, and their answers are aggregated to reveal the most popular choice after three days.
 
 # How to Contribute
-Go to website: https://weigh-in-sydney-simons-projects.vercel.app/ 
+Go to website: [https://weigh-in-sydney-simons-projects.vercel.app/ ](https://weigh-in.vercel.app/) 
 
 1. Log in or create an account (Top right)
 2. If you want to create a poll, click on the “Create Poll” button and fill in all the necessary information. Click “Create Poll" at the bottom of the page to submit
