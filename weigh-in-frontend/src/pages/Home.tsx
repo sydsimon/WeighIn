@@ -64,7 +64,7 @@ const Home: React.FC = () => {
     }
 
     return (
-        <div className="w-screen h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
             <Header showHomeButton={false} />
 
             {/* Rest of the component remains the same */}

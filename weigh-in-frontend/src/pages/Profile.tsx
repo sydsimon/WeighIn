@@ -93,7 +93,7 @@ const Profile: React.FC = () => {
     }
 
     return (
-        <div className="w-screen h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="w-screen min-h-screen bg-gray-50 dark:bg-gray-900">
             <Header showProfileButton={false} />
 
             {/* Main Content */}
