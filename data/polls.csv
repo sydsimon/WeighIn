@@ -1,0 +1,68 @@
+questionid,authorid,question,description,start_time,response1,response2,response3,response4
+4,0,"Select the ""circle"" option","A simple test question to ensure correct selection.","2024-11-14 10:00:00",Circle,Square,Triangle,Rectangle
+5,0,"Select the ""red"" option","A quality control question for color recognition.","2024-11-14 10:05:00",Blue,Green,Red,Yellow
+6,0,"Select the ""5"" option","A numerical selection quality control question.","2024-11-14 10:10:00",3,5,8,12
+7,12,"Is a hotdog a sandwich?","Most important question of all time",2024-11-30T00:00:00.000Z,Yes,No,"Depends on the hotdog","Its a taco"
+8,9,"What class should I take next semester?","I am trying to decide my classes as a CIS student",2024-12-04T00:00:00.000Z,"CIS 1600","CIS 4210","NETS 2130","NETS 2120"
+9,14,"is nets2130 a great class","we gotta know if it's awesome",2024-11-29T00:00:00.000Z,yes,"oh absolutely","for sure","no... (wrong answer)"
+10,11,"When should I go home?","Home when?",2024-11-26T00:00:00.000Z,Today,Tomorrow,"During Thanksgiving",Never
+11,12,"What should I eat for Thanksgiving?","I want yummy food in my tummy wummy",2024-11-28T00:00:00.000Z,Turkey,"Rice and Beans","Mac and Cheese",Chicken
+12,15,"Where should I go for lunch?","Where should I go for lunch?",2024-11-27T00:00:00.000Z,Commons,Pret,"Lyns Food Truck",Hill
+13,18,"Which shirt should I buy","I'm an anonymous professor who loves floral shirts.  Pick which one I should get next.",2024-12-02T00:00:00.000Z,https://www.kurtriver.com/collections/all-shirts/products/bushwick-spread-shirt,https://www.kurtriver.com/collections/all-shirts/products/dumbo-spread-shirt-1,https://www.kurtriver.com/collections/all-shirts/products/observe-floral-print-shirt,https://www.kurtriver.com/collections/all-shirts/products/copy-of-navy-blue-geometric-print-shirt
+14,12,"Is artificial intelligence a threat to humanity?","i dont want to be ruled by AI",2024-11-30T00:00:00.000Z,"Yes, it’s inevitable.","No, it’s a tool we control.","It depends on how it’s regulated.","Unsure, it’s too early to tell."
+15,19,"Should I take these classes together?","Is it a good idea to take CIS 4710 and CIS 4480 in the same semester?",2024-12-01T00:00:00.000Z,yes,no,"not manageable ","yes if you are good at time management"
+16,18,"Should I apply to Yale?","I'm an anonymous professor at a cool Ivy League university.  Someone from Yale emailed me to apply for a faculty job there.  Should I apply?",2024-12-12T00:00:00.000Z,"Yes, and go there if you get the job","Yes, but use it to get a raise to stay at your cool university","No, don't do it, Yale s-u-c-k-s","Choice 4"
+17,16,"Coke or Pepsi","Coke or Pepsi",2025-11-30T00:00:00.000Z,Coke,Pepsi,Neither,bread
+18,23,"What should I eat for dinner","I am indecisive on what to eat for dinner",2025-01-01T00:00:00.000Z,Pizza,"Turkey Sandwich","Wawa hogie",Steak
+19,22,"Who won the 2024 president election?","Who won the 2024 president election?",2024-11-26T00:00:00.000Z,"It didn't happen","It was rigged","It was stolen","I don't know"
+20,24,"Do you love AMERICA",MURICA,2024-12-03T00:00:00.000Z,EAGLE,NO,YURR,BRR
+21,22,frick,frick,2024-11-26T00:00:00.000Z,a,b,c,d
+23,26,"jpmorgan or epic or ally or ciena",real,2024-11-29T00:00:00.000Z,jpmorgan,"epic (systems)","ally financial",ciena
+24,26,"tiktok ban goes through?","real ",2024-11-28T00:00:00.000Z,yes,no,maybe,idk
+25,25,"Perspectives on Gambling","99% of gamblers quit before _____?",2024-11-30T00:00:00.000Z,"it ruins their life","their big win","losing all their money","a lifetime of misery"
+27,16,"What is love?",above,2024-11-29T00:00:00.000Z,"Baby don't hurt me, don't hurt me, no more","Love is a complex and multifaceted emotion that can be experienced in many different ways",bread,"bread 👍 👍 👍 "
+29,28,"Favorite eye color","fav eye color",2024-12-25T00:00:00.000Z,blue,brown,black,gray
+30,28,"Favorite eye color","fav eye color",2024-12-25T00:00:00.000Z,blue,brown,black,gray
+31,30,"jon jones next opponent","who ",2024-11-26T00:00:00.000Z,"tom aspinall","jose aldo","muhammad ali","betty white"
+32,12,"What the",?,1776-07-04T00:00:00.000Z,sigma,skibidi,"baby gronk",mango
+33,32,"pineapple on pizza","pineapple on pizza",2024-12-06T00:00:00.000Z,yes,no,ofc,never
+34,32,"better coast","east coast/west coast",2024-11-26T00:00:00.000Z,east,west,n/a,both
+35,33,"Best Artist","Who's ur fav",2024-12-28T00:00:00.000Z,"Drizzy Drake",Ye,TSwift,Grabrams
+36,38,"Who is cooler?","Important cryptography question.",2024-12-31T00:00:00.000Z,Bob,Alice,"DON'T PICK","OK maybe pick this one"
+37,39,"dogs or cats","choose which one we like her",2025-01-11T00:00:00.000Z,dog,cat,N/A,"i dunno"
+38,39,"best kind of public transport","choose which one you like more",2025-01-11T00:00:00.000Z,ferry,bus,subway,trolley
+39,39,"best european cuisine","which one do you like more",2025-01-11T00:00:00.000Z,italian,spanish,french,british
+40,39,"is Penn a good institution","self explanatory",2025-01-11T00:00:00.000Z,Yes,No,IDK,"i reject the premise"
+41,39,"best Penn school","self explanatory",2025-01-11T00:00:00.000Z,Nursing,Wharton,Engineering,"Da College"
+42,39,"best season","self explanatory",2025-01-11T00:00:00.000Z,Summer,Winter,Spring,Fall
+43,39,"best primary color","self explanatory",2025-01-11T00:00:00.000Z,Yellow,Blue,Red,"I reject the premise"
+44,39,"best berry","self explanatory",2025-01-04T00:00:00.000Z,blueberry,raspberry,blackberry,strawberry
+45,39,"east coast or west coast","self explanatory",2025-01-11T00:00:00.000Z,"east coast","west coast","no opinion","I reject the premise"
+46,39,"is AI a social good","self explanatory",2025-01-11T00:00:00.000Z,yes,bad,unsure,"I reject the premise"
+47,39,"are you afraid of your future career being automated","self explanatory",2025-01-11T00:00:00.000Z,yes,no,unsure,"uncertain about future career"
+48,39,"are software engineers overpaid","self explanatory",2025-01-11T00:00:00.000Z,yes,no,ambivalent,"I reject the premise"
+49,40,"Is cereal soup ? ","SOUP ??",2025-10-01T00:00:00.000Z,Yes,No,Unsure,"Soup ? "
+50,40,"This a good survey system ? ","Do you like the strongly disagree to strongly agree system",2026-10-01T00:00:00.000Z,"Strongly Agree",Agree,Disagree,"Strongly Disagree"
+51,44,"Best DJ","Who the best DJ?",2024-12-21T00:00:00.000Z,"Fred Again","James Hype","Mau P","Dom Dolla"
+52,44,"Best Travis Scott Album","Choose the best Travis Scott album",2025-01-04T00:00:00.000Z,Rodeo,Rodeo,Rodeo,Rodeo
+53,44,"Are we living in a simulation?","Are we living in a simulation?",2024-12-28T00:00:00.000Z,"Yes, and I'd like to keep it that way","Yes, and I'm going to break out","No, and it will never be possible","No, but I will make my own one day"
+54,44,"Best year of college","Choose the best year of college",2025-02-08T00:00:00.000Z,Freshman,Sophomore,Junior,Senior
+55,45,"What’s your take on using smartphones at the dinner table?","Curious about thoughts on smartphones at dinner table",2025-01-03T00:00:00.000Z,"Completely fine, life is busy","Acceptable in moderation","Neutral, doesn’t bother me","It’s rude and disrespectful"
+56,45,"Should work-from-home options remain standard after the pandemic?","Question about WFH thoughts",2025-01-03T00:00:00.000Z,"Absolutely—it’s the future","Yes, but only part-time","Neutral, doesn’t affect me much","No, in-office work is better for productivity"
+57,46,"Are Pop-Tarts ravioli?",Well?,2024-12-31T00:00:00.000Z,Yes,No,"Depends on the flavor","Definitely no."
+58,46,"f you replace all the parts of a ship, is it still the same ship?","Theseus is curious.",2024-12-31T00:00:00.000Z,"Strong yes",Yes,No,"Strong no"
+59,47,"Best Cuisine","What is the best cuisine? (could only put three options besides other)",2025-01-02T00:00:00.000Z,Italien,French,Korean,Other
+60,52,"Is Compilers & Interpreters w Steve Zdancewic a good class to take",^,2024-12-31T00:00:00.000Z,Definitely,Yes,No,Maybe
+61,53,"London or Paris?","⬆️",2026-01-03T00:00:00.000Z,London,Paris,"Haven't been to either",IDK?
+62,53,"Best HP?",Lumos,2025-07-01T00:00:00.000Z,"Goblet of Fire","Deathly Hallows","Chamber of Secrets",Others?
+63,29,"What should I do over winter break?",title,2024-12-03T00:00:00.000Z,"leetcode metropolis","stillwater crashout",dropshipping,"lobster acoustic concert"
+64,29,"What sport should I play","new sport to play for fun",2024-12-03T00:00:00.000Z,tennis,badminton,bjj,swimming
+65,57,"What app do you use to listen to music?","music apps",2024-12-14T00:00:00.000Z,Spotify,"Apple Music","YouTube Music",Other
+66,57,"in-ear or over-ear headphones",^,2024-12-14T00:00:00.000Z,"in-ear (e.g. AirPods)","over-ear headphones",both,"something else"
+67,31,"do you play the new pokemon trading card pocket game","A new pokemon game came out that I noticed many people were playing, including me",2024-12-03T00:00:00.000Z,yes,no,"qc question 1","qc question 2"
+68,61,"how are you today","how are you today",2099-01-01T00:00:00.000Z,Good,Great,Fantastic,Insane
+69,62,"pineapples on pizza?","is it the move",2025-01-11T00:00:00.000Z,yes,no,"absolutely not","i dont care"
+70,62,"best animal out of the list","which ",2025-01-10T00:00:00.000Z,squirrel,rabbit,toad,monkey
+71,62,"Does crypto refer to cryptocurrency or cryptography","niche area of interest",2025-01-11T00:00:00.000Z,cryptocurrency,cryptography,"are either of these things real",no
+72,62,"most right-wing country in the west?","which is the most right-wing",2025-01-11T00:00:00.000Z,england,usa,france,germany
+73,62,"best beverage on a hot day",which,2025-01-03T00:00:00.000Z,beer,water,lemonade,"iced tea"
