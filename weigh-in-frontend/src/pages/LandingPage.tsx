@@ -1,10 +1,31 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Vote, Users, TrendingUp, CheckCircle, ChevronRight } from 'lucide-react';
+import { Vote, Users, TrendingUp, CheckCircle, ChevronRight, Lock } from 'lucide-react';
+import { getPolls, Poll } from '../api';
 import { useAuth } from '../AuthContext';
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [polls, setPolls] = useState<Poll[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchPolls = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getPolls();
+        // Only show the 3 most recent polls
+        setPolls(data.slice(0, 3));
+      } catch (err) {
+        console.error('Failed to load polls:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPolls();
+  }, []);
   
   const features = [
     {
@@ -165,6 +186,82 @@ const LandingPage = () => {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Poll Preview Section */}
+      <div className="py-16 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+              Featured Polls
+            </h2>
+            <p className="mt-4 text-xl text-gray-500 dark:text-gray-400">
+              Preview what's being discussed right now
+            </p>
+          </div>
+
+          {isLoading ? (
+            <div className="text-center text-gray-600 dark:text-gray-400">
+              Loading polls...
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {polls.map((poll, index) => (
+                <div key={poll.id} className="relative group">
+                  <div className="h-full border border-gray-200 dark:border-gray-700 p-6 rounded-lg 
+                               bg-white dark:bg-gray-800 shadow-sm">
+                    <div className="flex items-center space-x-2 mb-4">
+                      <div className={`w-8 h-8 rounded-full ${
+                        index % 3 === 0 ? 'bg-blue-500 dark:bg-blue-600' :
+                        index % 3 === 1 ? 'bg-green-500 dark:bg-green-600' :
+                        'bg-purple-500 dark:bg-purple-600'
+                      }`} />
+                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                        Poll #{poll.id}
+                      </span>
+                    </div>
+                    
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                      {poll.question}
+                    </h3>
+                    
+                    {poll.description && (
+                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                        {poll.description}
+                      </p>
+                    )}
+
+                    <div className="space-y-2">
+                      {[poll.response1, poll.response2, poll.response3, poll.response4].map((response, idx) => (
+                        <div key={idx} 
+                             className="px-3 py-2 bg-gray-50 dark:bg-gray-700 rounded-md
+                                      text-gray-600 dark:text-gray-300 text-sm">
+                          {response}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Overlay for non-logged-in users */}
+                  <div className="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 
+                                flex items-center justify-center rounded-lg opacity-0 
+                                group-hover:opacity-100 transition-opacity">
+                    <div className="text-center p-4">
+                      <Lock className="w-8 h-8 text-white mx-auto mb-2" />
+                      <button
+                        onClick={handleSignIn}
+                        className="text-white bg-green-600 hover:bg-green-700 
+                                 px-4 py-2 rounded-md transition-colors"
+                      >
+                        Sign in to participate
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
