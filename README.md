@@ -59,4 +59,6 @@ Aggregation:
 Code Stack: Vite + React frontend and Flask backend
 
 # Analysis
-We will be doing analysis about how well our application can scale in terms of time and money
+Evaluate the types of questions that were asked and find what categories have the most interaction.
+<img width="929" alt="Screenshot 2024-12-08 at 8 33 18 PM" src="https://github.com/user-attachments/assets/bf445fc5-51ee-4f27-9d3f-6caeda32654c">
+
