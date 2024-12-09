@@ -454,7 +454,7 @@ def get_polls():
                response1, response2, response3, response4 
         FROM polls 
         WHERE authorid != 0 
-        ORDER BY start_time DESC
+        ORDER BY RANDOM()
     """)
     
     polls = cursor.fetchall()

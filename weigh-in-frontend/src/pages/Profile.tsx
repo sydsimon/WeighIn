@@ -78,7 +78,7 @@ const Profile: React.FC = () => {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen w-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
                 <div className="text-xl text-gray-800 dark:text-gray-200">Loading polls...</div>
             </div>
         );
@@ -86,7 +86,7 @@ const Profile: React.FC = () => {
 
     if (error) {
         return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen w-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
                 <div className="text-xl text-red-500 dark:text-red-400">{error}</div>
             </div>
         );

@@ -87,19 +87,19 @@ const Home: React.FC = () => {
                     }
                 </h2>
                 {isLoading ? (
-                    <div className="text-center text-gray-800 dark:text-gray-200">
+                    <div className="min-h-screen w-screen text-center text-gray-800 dark:text-gray-200">
                         Loading polls...
                     </div>
                 ) : error ? (
-                    <div className="text-center text-red-500 dark:text-red-400">
+                    <div className="min-h-screen w-screen text-center text-red-500 dark:text-red-400">
                         {error}
                     </div>
                 ) : !user ? (
-                    <div className="text-center text-gray-500 dark:text-gray-400">
+                    <div className="min-h-screen w-screen text-center text-gray-500 dark:text-gray-400">
                         Please log in to see available polls
                     </div>
                 ) : polls.length === 0 ? (
-                    <div className="text-center text-gray-500 dark:text-gray-400">
+                    <div className="min-h-screen w-screen text-center text-gray-500 dark:text-gray-400">
                         No polls available
                     </div>
                 ) : (
