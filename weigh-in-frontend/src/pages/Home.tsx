@@ -69,13 +69,23 @@ const Home: React.FC = () => {
 
             {/* Rest of the component remains the same */}
             <div className="p-6">
+                {user && (
+                    <div className="mt-6 text-center">
+                        <button 
+                            onClick={handleCreatePoll}
+                            className="px-8 py-3 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 
+                                     text-white rounded-full text-lg transition-colors"
+                        >
+                            Create Question
+                        </button>
+                    </div>
+                )}
                 <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
                     {user 
                         ? "Answer the following polls from other users" 
                         : "Sign in to view and participate in polls"
                     }
                 </h2>
-
                 {isLoading ? (
                     <div className="text-center text-gray-800 dark:text-gray-200">
                         Loading polls...
@@ -127,17 +137,7 @@ const Home: React.FC = () => {
                     </div>
                 )}
 
-                {user && (
-                    <div className="mt-6 text-center">
-                        <button 
-                            onClick={handleCreatePoll}
-                            className="px-8 py-3 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 
-                                     text-white rounded-full text-lg transition-colors"
-                        >
-                            Create Question
-                        </button>
-                    </div>
-                )}
+                
             </div>
 
             <footer className="flex justify-center items-center space-x-3 py-4 bg-green-200 dark:bg-green-900">
